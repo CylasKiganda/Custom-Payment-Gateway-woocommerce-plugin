@@ -39,7 +39,7 @@ function wc_PFS_gateway_init() {
 		public function __construct() {
 	  
 			$this->id                 = 'PFS_gateway_pick';
-			$this->icon               = apply_filters('woocommerce_bacs_icon', '');
+			$this->icon               = apply_filters('woocommerce_pfs_icon', '');
 			$this->has_fields         = false;
 			$this->method_title       = __( 'Pay From the store', 'wc-gateway-PFS' );
 			$this->method_description = __( 'Allows PFS payments. Very handy!!. Orders are marked as "on-hold" when received.', 'woocommerce' );
@@ -57,8 +57,7 @@ function wc_PFS_gateway_init() {
 			add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 			add_action( 'woocommerce_thankyou_' . $this->id, array( $this, 'thankyou_page' ) );
 		  
-			// Customer Emails
-			//	add_action( 'woocommerce_email_before_order_table', array( $this, 'email_instructions' ), 10, 3 );
+			
 		}
 	
 	
@@ -142,8 +141,7 @@ function wc_PFS_gateway_init() {
 			// Mark as on-hold (we're awaiting the payment)
 			$order->update_status( 'on-hold', __( 'Awaiting PFS payment', 'wc-gateway-PFS' ) );
 			
-			// Reduce stock levels
-			//$order->reduce_order_stock();
+			
 			
 			// Remove cart
 			WC()->cart->empty_cart();
